@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: linear-gradient(93.96deg, #4bb5e2 17.14%, #2ebdb5 83.32%);
+        }
+        .login-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .login-box h2 {
+            margin: 0 0 20px 0;
+            text-align: center;
+        }
+        .login-box input[type="text"],
+        .login-box input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .login-box input[type="text"]:focus,
+        .login-box input[type="password"]:focus {
+            border-color: #4bb5e2; /* Change to desired border color */
+            border-width: 2px;
+            outline: none; /* Remove default outline */
+            box-shadow: 0 0 5px rgba(75, 181, 226, 0.5); /* Add custom shadow */
+        }
+        .login-box input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-image: linear-gradient(93.96deg, #4bb5e2 17.14%, #2ebdb5 83.32%);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .login-box input[type="submit"]:hover {
+            background-image: linear-gradient(93.96deg, #8fd1ec 17.14%, #8cd8d5 83.32%);
+        }
+        .bg-hostU-blue-gradient {
+            background-image: linear-gradient(93.96deg, #4bb5e2 17.14%, #2ebdb5 83.32%);
+        }
+        .host-u-logo-text {
+            position: absolute;
+            top: 10px;
+            left: 30px;
+            color: white;;
+            font-size: 60px;
+            font-family: sans-serif;
+            font-weight: 900;
+        }
+        .host-u-admin-dashboard-text {
+            position: absolute;
+            top: 20px;
+            left: 290px;
+            color: white;;
+            font-size: 35px;
+            font-family: sans-serif;
+            width: 200px; /* Adjust this value as needed */
+            word-wrap: break-word;
+        }
+        .signature {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 22px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
+            font-weight: 100;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="host-u-logo-text">
+            host u |
+        </div>
+        <div class="host-u-admin-dashboard-text">
+            Admin Dashboard
+        </div>
+    </div>
+    <div class="login-box">
+        <form action="/login" method="post">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="submit" value="Login">
+        </form>
+    </div>
+    <div class="signature">
+        Created by Daniel Ip
+    </div>
+</body>
+</html>
