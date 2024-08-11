@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HostU Admin | Queries</title>
+    <link rel="stylesheet" href="../../styles/styles.css"> <!-- Linking external CSS file -->
+    <style>
+        .card-container {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding-left: 40px;
+            padding-top: 20px;
+            background-color: #f0f0f0;
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            justify-content: top;
+            align-items: left;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+            color: black;
+            width: 312.5px;
+            height: 187.5px;
+            border: 2px solid transparent; /* Add a transparent border by default */
+            transition: border 0.3s ease; /* Smooth transition for border change */
+        }
+
+        .card:hover {
+            border: 2px solid #4bb5e2; /* Blue outline on hover */
+        }
+
+        .card h2 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .card hr {
+            width: 100%;
+            border: 3px solid #4bb5e2;
+            border-top: 1px solid #ddd;
+            margin: 15px 0; /* Adjust spacing as needed */
+        }
+
+        .card p {
+            margin: 0;
+            font-size: 18px;
+            color: #7e7e7eb7;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <div class="host-u-logo-text">
+                host u |
+            </div>
+            <div class="host-u-admin-dashboard-text">
+                Admin Dashboard
+            </div>
+        </div>
+        <a href="#">Queries</a>
+        <a href="#help">Help</a>
+        <a href="#account">Account</a>
+        <a href="#home">Home</a>
+    </div>
+
+    <div class="card-container">
+        <a href="saved-queries.html" class="card">
+            <h2>Saved Queries</h2>
+            <hr>
+            <p>Use your saved queries to fetch the data you want.</p>
+        </a>
+        <a href="llm_queries.html" class="card">
+            <h2>LLM Queries</h2>
+            <hr>
+            <p>Describe the data you need to fetch in plain English.</p>
+        </a>
+        <a href="write_sql_queries.html" class="card">
+            <h2>SQL Queries</h2>
+            <hr>
+            <p>Write your own SQL code to query the database.</p>
+        </a>
+    </div>    
+
+    <div class="content">
+        <h1>Welcome to queries page</h1>
+    </div>
+    <div class="signature">
+        Created by Daniel Ip
+    </div>
+</body>
+</html>

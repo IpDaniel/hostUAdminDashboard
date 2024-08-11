@@ -1,0 +1,41 @@
+.table-container {
+    display: block;
+    width: 80%;
+    margin: 0 auto; /* Center the table horizontally */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    border: 1px solid #ddd; /* Add a border around the table */
+    background-color: #f0f0f0;
+}
+
+table {
+    width: max-content;
+    table-layout: auto;
+    border-collapse: collapse; /* Collapse borders for a cleaner look */
+    background-color: #f0f0f0;
+}
+
+thead {
+    background-color: #4bb5e2; /* Header background color */
+    color: white; /* Header text color */
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd; /* Add a bottom border to each cell */
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2; /* Alternate row color */
+}
+
+tr:nth-child(odd) {
+    background-color: white; /* Alternate row color */
+}
+
+th {
+    position: sticky;
+    top: 0;
+    z-index: 1; /* Ensure the header stays on top while scrolling */
+    background-color: #4bb5e2; /* Header background color */
+}
