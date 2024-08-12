@@ -80,7 +80,7 @@
     </style>
     <link rel="stylesheet" href="../../styles/styles.css">
     <link rel="stylesheet" href="../../styles/output-table.css">
-    <link rel="stylesheet" href="../../styles/que.css">
+    <link rel="stylesheet" href="../../styles/query-finished-running.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 </head>
@@ -127,79 +127,129 @@
     </div>
     
     <div class="content">
-        
-        <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Header 1</th>
-                    <th>Header 2</th>
-                    <th>Header 3</th>
-                    <th>Header 4</th>
-                    <th>Header 5</th>
-                    <th>Header 6</th>
-                    <th>Header 7</th>
-                    <th>Header 8</th>
-                    <th>Header 9</th>
-                    <th>Header 10</th>
-                    <th>Header 11</th>
-                    <th>Header 12</th>
-                    <th>Header 13</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- 100 rows -->
-                <!-- Example row: -->
-                <tr>
-                    <td>Row 1, Col 1</td>
-                    <td>Row 1, Col 2</td>
-                    <td>Row 1, Col 3</td>
-                    <td>Row 1, Col 4</td>
-                    <td>Row 1, Col 5</td>
-                    <td>Row 1, Col 6</td>
-                    <td>Row 1, Col 7</td>
-                    <td>Row 1, Col 8</td>
-                    <td>Row 1, Col 9</td>
-                    <td>Row 1, Col 10</td>
-                    <td>Row 1, Col 11</td>
-                    <td>Row 1, Col 12</td>
-                    <td>Row 1, Col 13</td>
-                </tr>
-                <tr>
-                    <td>Row 2, Col 1</td>
-                    <td>Row 2, Col 2</td>
-                    <td>Row 2, Col 3</td>
-                    <td>Row 2, Col 4</td>
-                    <td>Row 2, Col 5</td>
-                    <td>Row 2, Col 6</td>
-                    <td>Row 2, Col 7: peepeepoopoo</td>
-                    <td>Row 2, Col 8</td>
-                    <td>Row 2, Col 9</td>
-                    <td>Row 2, Col 10</td>
-                    <td>Row 2, Col 11</td>
-                    <td>Row 2, Col 12</td>
-                    <td>Row 2, Col 13</td>
-                </tr>
-                <tr>
-                    <td>Row 3, Col 1</td>
-                    <td>Row 3, Col 2</td>
-                    <td>Row 3, Col 3</td>
-                    <td>Row 3, Col 4</td>
-                    <td>Row 3, Col 5</td>
-                    <td>Row 3, Col 6</td>
-                    <td>Row 3, Col 7</td>
-                    <td>Row 3, Col 8</td>
-                    <td>Row 3, Col 9</td>
-                    <td>Row 3, Col 10</td>
-                    <td>Row 3, Col 11</td>
-                    <td>Row 3, Col 12</td>
-                    <td>Row 3, Col 13</td>
-                </tr>
-                
-                <!-- Repeat similar rows -->
-                <!-- Use a loop or backend logic to generate these rows in actual implementation -->
-            </tbody>
-        </table>
+
+        <div class="query-finished-running">
+            <div class="query-title-container add-bottom-border">
+                <h2>Query Title</h2>
+                <div class="query-title-input-container">
+                    <input type="text" class="small-text-box" placeholder="Enter query title">
+                    <button>Save Query</button>
+                </div>
+                <p class="save-failure-text">Must enter title to save</p>
+            </div>
+            <div id="plaintext-prompt-section">
+                <h2>Plaintext Prompt Used</h2>
+                <div class="plaintext-prompt-box">
+                    <input type="text" class="small-text-box" readonly value="Get all users">
+                </div>
+            </div>
+            <div class="dropdown">
+                <span class="dropdown-header" onclick="toggleDropdown()">
+                    <i id="sql-query-down-arrow" class="fas fa-chevron-down"></i>
+                    <i id="sql-query-up-arrow" style="visibility: hidden;"class="fas fa-chevron-up"></i>
+                    <span id="sql-query-header" style="padding-left: 10px; margin-left: -30px;">Show SQL Query Generated</span>
+                </span>
+                <div class="dropdown-content add-bottom-border" id="dropdown-content">
+                    <textarea id="query-text-box" style="font-family: 'Courier New', Courier, monospace;" class="small-text-box">SELECT (*) FROM USER</textarea>
+                    <p>Note to double check if im really sure I want to make this editable in the beta</p>
+                    <button class="run-button">Save Changes</button>
+                    <p class="save-failure-text" style="margin-top: 3px">Must enter title to save</p>
+                </div>
+            </div>
+            <div class="button-group">
+                <button class="run-button">Run Again</button>
+                <button class="run-button">Save Table</button>
+            </div>
+
+            <!-- INSERT TABLE HTML HERE -->
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Header 1</th>
+                            <th>Header 2</th>
+                            <th>Header 3</th>
+                            <th>Header 4</th>
+                            <th>Header 5</th>
+                            <th>Header 6</th>
+                            <th>Header 7</th>
+                            <th>Header 8</th>
+                            <th>Header 9</th>
+                            <th>Header 10</th>
+                            <th>Header 11</th>
+                            <th>Header 12</th>
+                            <th>Header 13</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 100 rows -->
+                        <!-- Example row: -->
+                        <tr>
+                            <td>Row 1, Col 1</td>
+                            <td>Row 1, Col 2</td>
+                            <td>Row 1, Col 3</td>
+                            <td>Row 1, Col 4</td>
+                            <td>Row 1, Col 5</td>
+                            <td>Row 1, Col 6</td>
+                            <td>Row 1, Col 7</td>
+                            <td>Row 1, Col 8</td>
+                            <td>Row 1, Col 9</td>
+                            <td>Row 1, Col 10</td>
+                            <td>Row 1, Col 11</td>
+                            <td>Row 1, Col 12</td>
+                            <td>Row 1, Col 13</td>
+                        </tr>
+                        <tr>
+                            <td>Row 2, Col 1</td>
+                            <td>Row 2, Col 2</td>
+                            <td>Row 2, Col 3</td>
+                            <td>Row 2, Col 4</td>
+                            <td>Row 2, Col 5</td>
+                            <td>Row 2, Col 6</td>
+                            <td>Row 2, Col 7: peepeepoopoo</td>
+                            <td>Row 2, Col 8</td>
+                            <td>Row 2, Col 9</td>
+                            <td>Row 2, Col 10</td>
+                            <td>Row 2, Col 11</td>
+                            <td>Row 2, Col 12</td>
+                            <td>Row 2, Col 13</td>
+                        </tr>
+                        <tr>
+                            <td>Row 3, Col 1</td>
+                            <td>Row 3, Col 2</td>
+                            <td>Row 3, Col 3</td>
+                            <td>Row 3, Col 4</td>
+                            <td>Row 3, Col 5</td>
+                            <td>Row 3, Col 6</td>
+                            <td>Row 3, Col 7</td>
+                            <td>Row 3, Col 8</td>
+                            <td>Row 3, Col 9</td>
+                            <td>Row 3, Col 10</td>
+                            <td>Row 3, Col 11</td>
+                            <td>Row 3, Col 12</td>
+                            <td>Row 3, Col 13</td>
+                        </tr>
+                        <tr>
+                            <td>Row 4, Col 1</td>
+                            <td>Row 4, Col 2</td>
+                            <td>Row 4, Col 3</td>
+                            <td>Row 4, Col 4</td>
+                            <td>Row 4, Col 5</td>
+                            <td>Row 4, Col 6</td>
+                            <td>Row 4, Col 7</td>
+                            <td>Row 4, Col 8</td>
+                            <td>Row 4, Col 9</td>
+                            <td>Row 4, Col 10</td>
+                            <td>Row 4, Col 11</td>
+                            <td>Row 4, Col 12</td>
+                            <td>Row 4, Col 13</td>
+                        </tr>
+                        
+                        <!-- Repeat similar rows -->
+                        <!-- Use a loop or backend logic to generate these rows in actual implementation -->
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -209,4 +259,5 @@
         Created by Daniel Ip
     </div>
 </body>
+<script src="../../scripts/js/toggle-dropdown.js"></script>
 </html>
