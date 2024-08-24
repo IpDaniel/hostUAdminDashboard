@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HostU Admin | CHANGE THIS</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .account-details {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ffffff;
+            border-bottom: solid 2px #d0d0d0;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+        }
+
+        .profile-picture {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: #4bb5e276;
+        }
+
+        .profile-info {
+            margin-left: 20px;
+        }
+
+        .profile-info h1 {
+            font-size: 48px;
+            margin: 0;
+            color: black;
+        }
+
+        .profile-info h2 {
+            font-size: 36px;
+            margin: 0;
+            color: gray;
+            font-weight: normal;
+        }
+
+        .account-meta {
+            text-align: right;
+        }
+
+        .account-meta p {
+            margin: 0;
+            font-size: 22px;
+            color: black;
+        }
+
+        .account-meta .settings {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-top: 60px;
+        }
+
+        .settings-icon {
+            margin-left: 10px;
+        }
+
+        .user-history-logs {
+            width: 80%;
+            margin: 0 auto;
+            padding-top: 20px;
+        }
+
+        .user-history-logs h2 {
+            font-size: 28px;
+            color: black;
+            margin-bottom: 15px;
+        }
+
+        .history-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-top: 1px solid gray;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .history-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        .history-date {
+            font-weight: bold;
+            font-size: 20px;
+            color: black;
+        }
+
+        .history-duration {
+            font-size: 18px;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <div class="host-u-logo-text">
+                host u |
+            </div>
+            <div class="host-u-admin-dashboard-text">
+                Admin Dashboard
+            </div>
+        </div>
+        <a href="#queries">Queries</a>
+        <a href="#help">Help</a>
+        <a href="#account">Account</a>
+        <a href="#home">Home</a>
+    </div>
+    <div class="account-details">
+        <div class="profile">
+            <div class="profile-picture"></div>
+            <div class="profile-info">
+                <h1>Name of User</h1>
+                <h2>Title of User</h2>
+            </div>
+        </div>
+        <div class="account-meta">
+            <p>Joined on 8/24/2024</p>
+            <div class="settings">
+                <p>Account settings</p>
+                <i class="settings-icon fas fa-cog"></i> <!-- Font Awesome settings icon -->
+            </div>
+        </div>
+    </div>
+    <div class="user-history-logs">
+        <h2>User History Logs</h2>
+        <ul class="history-list">
+            <li class="history-item">
+                <span class="history-date">8/24/2024</span>
+                <span class="history-duration">Duration - 1h 23m</span>
+            </li>
+            <li class="history-item">
+                <span class="history-date">8/23/2024</span>
+                <span class="history-duration">Duration - 2h 15m</span>
+            </li>
+            <li class="history-item">
+                <span class="history-date">8/22/2024</span>
+                <span class="history-duration">Duration - 45m</span>
+            </li>
+            <!-- Add more history items as needed -->
+        </ul>
+    </div>    
+    <div class="signature">
+        Created by Daniel Ip
+    </div>
+</body>
+</html>
