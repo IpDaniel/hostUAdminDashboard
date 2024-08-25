@@ -13,6 +13,8 @@ USER_CSV_FILE = 'data/users.csv'
 
 @app.route('/', methods=['GET'])
 def index():
+    if 'user_id' in session:
+        return redirect(url_for('dashboard'))
     return render_template('index.html')
 
 
@@ -23,10 +25,10 @@ def login():
     username = data.get('username')
     password = data.get('password').encode('utf-8')
     user = find_user_by_username(username)
-    print(user['id'])
 
     if user and bcrypt.checkpw(password, user['password'].encode('utf-8')):
-        session['user_id'] = username
+        session['user_id'] = user['id']
+        print(user['id'] + ' logged in')
         return jsonify({"message": "Login successful", "redirect": url_for('dashboard')}), 200
     else:
         return jsonify({"message": "Invalid credentials"}), 401
