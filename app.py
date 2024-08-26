@@ -56,6 +56,13 @@ def check_session():
         return jsonify({"user_id": session['user_id']}), 200
     return jsonify({"message": "No user logged in"}), 401
 
+#Return the guest/host ratio
+@app.route('/guest-host-ratio', methods=['GET'])
+def guest_host_ratio():
+    # Calculate or retrieve the guest-host ratio
+    ratio = 2.99 # Replace with your logic to get the ratio
+    return jsonify({"ratio": ratio})
+
 
 # Run the application
 if __name__ == '__main__':
