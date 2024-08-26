@@ -1,6 +1,7 @@
 #Import project structure dependencies
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 import bcrypt
+from datetime import timedelta
 
 #Import helper function files
 from scripts.python.user import read_users, write_user, find_user_by_username
@@ -17,11 +18,16 @@ app.register_blueprint(dashboard_bp)
 # Configure the secret key for session management
 app.config['SECRET_KEY'] = 'my-temporary-secret-key'
 
-
+# Set Permanent session lifetime
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
 
 # Path to the CSV file storing user data
 USER_CSV_FILE = 'data/users.csv'
 
+@app.before_request
+def make_session_permanent():
+    session.permanent = True
+    session.modified = True
 
 @app.route('/', methods=['GET'])
 def index():
