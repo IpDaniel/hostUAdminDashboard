@@ -1,11 +1,23 @@
+#Import project structure dependencies
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 import bcrypt
+
+#Import helper function files
 from scripts.python.user import read_users, write_user, find_user_by_username
 
+#Import other routes as blueprints
+from routes.dashboard import dashboard_bp
+
+#create app
 app = Flask(__name__)
+
+#Register other routes blueprints
+app.register_blueprint(dashboard_bp)
 
 # Configure the secret key for session management
 app.config['SECRET_KEY'] = 'my-temporary-secret-key'
+
+
 
 # Path to the CSV file storing user data
 USER_CSV_FILE = 'data/users.csv'
@@ -14,7 +26,7 @@ USER_CSV_FILE = 'data/users.csv'
 @app.route('/', methods=['GET'])
 def index():
     if 'user_id' in session:
-        return redirect(url_for('dashboard'))
+        return redirect(url_for('dashboard.dashboard'))
     return render_template('index.html')
 
 
@@ -29,7 +41,7 @@ def login():
     if user and bcrypt.checkpw(password, user['password'].encode('utf-8')):
         session['user_id'] = user['id']
         print(user['id'] + ' logged in')
-        return jsonify({"message": "Login successful", "redirect": url_for('dashboard')}), 200
+        return jsonify({"message": "Login successful", "redirect": url_for('dashboard.dashboard')}), 200
     else:
         return jsonify({"message": "Invalid credentials"}), 401
 
@@ -39,14 +51,6 @@ def login():
 def logout():
     session.pop('user_id', None)
     return jsonify({"message": "Logout successful"}), 200
-
-
-#Dashboard route
-@app.route('/dashboard')
-def dashboard():
-    if 'user_id' in session:
-        return render_template('home.html', user=session['user_id'])
-    return redirect(url_for('index'))
 
 
 # Check session route
