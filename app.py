@@ -4,7 +4,7 @@ import bcrypt
 from datetime import timedelta
 
 #Import helper function files
-from scripts.python.user import read_users, write_user, find_user_by_username
+from scripts.python.user import read_users, write_user, find_user_by_username, get_user_object_by_id
 
 #Import other routes as blueprints
 from routes.dashboard import dashboard_bp
@@ -24,11 +24,15 @@ app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
 # Path to the CSV file storing user data
 USER_CSV_FILE = 'data/users.csv'
 
+
+# Setting session properties
 @app.before_request
 def make_session_permanent():
     session.permanent = True
     session.modified = True
 
+
+# route for login form
 @app.route('/', methods=['GET'])
 def index():
     if 'user_id' in session:
@@ -65,13 +69,6 @@ def check_session():
     if 'user_id' in session:
         return jsonify({"user_id": session['user_id']}), 200
     return jsonify({"message": "No user logged in"}), 401
-
-#Return the guest/host ratio
-@app.route('/guest-host-ratio', methods=['GET'])
-def guest_host_ratio():
-    # Calculate or retrieve the guest-host ratio
-    ratio = 2.99 # Replace with your logic to get the ratio
-    return jsonify({"ratio": ratio})
 
 
 # Run the application

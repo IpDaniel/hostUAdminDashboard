@@ -53,6 +53,20 @@ def find_user_by_id(user_id):
             return user
     return None
 
+# Utility function to create a user object with their id
+def get_user_object_by_id(user_id):
+    user_dict = find_user_by_id(user_id)
+    try:
+        return User(user_dict['id'],
+                    user_dict['username'],
+                    user_dict['password'],
+                    user_dict['db_username'],
+                    user_dict['db_password'],
+                    user_dict['name'],
+                    user_dict['title'])
+    except Exception as e:
+        print(f"Could not create user. Error thrown: {e}")
+
 
 # Sample user creation for testing
 # if not find_user_by_username('ip.d@northeastern.edu'):
@@ -62,8 +76,8 @@ def find_user_by_id(user_id):
 
 
 class User:
-    def __init__(self, username, password, db_username, db_password, name, title):
-        self.id = '1'
+    def __init__(self, id, username, password, db_username, db_password, name, title):
+        self.id = id
         self.username = username
         self.password = password
         self.db_username = db_username
