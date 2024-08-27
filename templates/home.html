@@ -232,7 +232,7 @@
                 <div class="chart-container">
                     <canvas id="pieChart"></canvas>
                 </div>
-                <div id="guest-host-ratio" class="guest-host-ratio">3.00</div>
+                <div id="guest-host-ratio" class="guest-host-ratio">-.--</div>
                 <div class="large-text">
                     Total Guest/Host Ratio
                 </div>
@@ -294,7 +294,7 @@
                 labels: ['Guests', 'Hosts'],
                 datasets: [{
                     label: 'User Distribution',
-                    data: [1500, 500],
+                    data: [0, 1],
                     backgroundColor: [
                         'rgba(46, 189, 181, 0.2)',
                         'rgba(54, 162, 235, 0.2)'
@@ -318,6 +318,8 @@
             .then(response => response.json())
             .then(data => {
                 document.getElementById('guest-host-ratio').innerText = data.ratio;
+                pieChart.data.datasets[0].data = [data.ratio * 100, 100];
+                pieChart.update();
             })
             .catch(error => console.error('Error fetching guest-host ratio:', error));
     });

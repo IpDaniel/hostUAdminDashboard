@@ -6,6 +6,7 @@ from flask import Blueprint, render_template, session, redirect, url_for, jsonif
 # import other file dependencies
 from scripts.python.connect import run_query
 from scripts.python.user import User, find_user_by_id, get_user_object_by_id
+from scripts.python.query import get_query_by_name
 
 dashboard_bp = Blueprint('dashboard', __name__)
 
@@ -28,17 +29,12 @@ def guest_host_ratio():
         user = get_user_object_by_id(session['user_id'])
 
         #Set query strings
-        num_guest_users_query = '''
-        select count(*)
-        from "User" u
-        inner join "ListingPreferences" p on p."userId" = u.id'''
+        num_guest_users_query = get_query_by_name('Number of guest users')['queryText']
 
-        num_users_query = '''
-        select count(*)
-        from "User"'''
+        num_users_query = get_query_by_name('Total number of users')['queryText']
 
         # calculate the guest/host ratio
         num_guests = run_query(user, num_guest_users_query)[0][0] 
         num_hosts = run_query(user, num_users_query)[0][0] - num_guests 
-        ratio = round(num_guests/num_hosts, 2) # Replace with your logic to get the ratio
+        ratio = round(num_guests/num_hosts, 2) 
     return jsonify({"ratio": ratio})

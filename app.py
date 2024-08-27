@@ -21,10 +21,6 @@ app.config['SECRET_KEY'] = 'my-temporary-secret-key'
 # Set Permanent session lifetime
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
 
-# Path to the CSV file storing user data
-USER_CSV_FILE = 'data/users.csv'
-
-
 # Setting session properties
 @app.before_request
 def make_session_permanent():

@@ -1,0 +1,3 @@
+uniqueName,creatorId,queryText,plaintextPrompt,createdAt,lastUsed
+Number of guest users,936df00d-f3ee-4596-8f35-3c97b4b644b8,"select count(*) from ""User"" u inner join ""ListingPreferences"" p on p.""userId"" = u.id",,2024-08-27T16:06:59.395620,
+Total number of users,936df00d-f3ee-4596-8f35-3c97b4b644b8,"select count(*) from ""User""",,2024-08-27T16:06:59.395620,
