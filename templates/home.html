@@ -221,7 +221,7 @@
         <div class="top-sections">
             <div class="left-section">
                 <div class="horizontal-elements">
-                    <div class="big-numbers-row-two past-week-signups">72</div>
+                    <div id="past-week-signups" class="big-numbers-row-two past-week-signups">-</div>
                     <div class="large-text">Sign-ups In Past Seven Days</div>
                 </div>
                 <div class="chart-container">
@@ -241,7 +241,7 @@
         <div class="bottom-sections">
             <div class="bottom-section-half">
                 <div class="horizontal-elements">
-                    <div class="total-users">1,000</div>
+                    <div id="total-users" class="total-users">1,000</div>
                     <div class="large-text">Total Sign-ups</div>
                 </div>
             </div>
@@ -270,10 +270,10 @@
         const barChart = new Chart(barCtx, {
             type: 'bar',
             data: {
-                labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Today'],
+                labels: ['-', '-', '-', '-', '-', '-', '-'],
                 datasets: [{
                     label: 'Sign-ups',
-                    data: [8, 11, 12, 11, 10, 16, 4],
+                    data: [0, 0, 0, 0, 0, 0, 0],
                     backgroundColor: 'rgba(54, 162, 235, 0.2)',
                     borderColor: 'rgba(54, 162, 235, 1)',
                     borderWidth: 1
@@ -322,6 +322,46 @@
                 pieChart.update();
             })
             .catch(error => console.error('Error fetching guest-host ratio:', error));
+    });
+</script>
+<script>
+    function updateBarChart() {
+        fetch('/get-bar-chart-data')
+            .then(response => response.json())
+            .then(data => {
+                // Update bar chart labels and data
+                barChart.data.labels = data.labels;
+                barChart.data.datasets[0].data = data.data;
+                // Refresh the chart
+                barChart.update();
+
+                //Update the total number
+                const weeklySum = data.data.reduce((accumulator, currentValue) => {
+                    return accumulator + currentValue;
+                }, 0);
+
+                document.getElementById('past-week-signups').innerText = weeklySum;
+            })
+            .catch(error => console.error('Error fetching bar chart data:', error));
+    }
+
+    // Call the function when the page loads
+    document.addEventListener("DOMContentLoaded", updateBarChart);
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch('/total-users')  // Replace '/total-users' with your actual endpoint
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json(); // Assuming the response is JSON
+            })
+            .then(data => {
+                // Assuming the backend returns a JSON object with a field named 'total'
+                document.getElementById('total-users').innerText = data.total;
+            })
+            .catch(error => console.error('Error fetching total users:', error));
     });
 </script>
 </html>
