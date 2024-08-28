@@ -58,5 +58,28 @@ def total_users():
     if 'user_id' in session:
         user = get_user_object_by_id(session['user_id'])
         total_users_query = get_query_by_name('Total number of users')
-        total_users = run_query(user=user, queryText=total_users_query['text'])
+        total_users = run_query(user=user, queryText=total_users_query['queryText'])
+        total_users = f"{total_users[0][0]:,}"
         return jsonify({'total': total_users})
+
+
+#return total number of conversationMessags sent in the past day
+@dashboard_bp.route('/messages-past-day', methods=['GET'])
+def messages_past_day():
+    if 'user_id' in session:
+        user = get_user_object_by_id(session['user_id'])
+        num_messages_query = get_query_by_name('Total messages in last 24 hours') # Put the right query here
+        num_messages = run_query(user=user, queryText=num_messages_query['queryText'])
+        num_messages = f"{num_messages[0][0]:,}"
+        return jsonify({'total': num_messages})
+    
+
+#return total number of booked listings
+@dashboard_bp.route('/total-booked-listings', methods=['GET'])
+def total_booked_listings():
+    if 'user_id' in session:
+        user = get_user_object_by_id(session['user_id'])
+        booked_listings_query = get_query_by_name('Total Booked Listings') # Put the right query here
+        num_booked_listings = run_query(user=user, queryText=booked_listings_query['queryText'])
+        num_booked_listings = f"{num_booked_listings[0][0]:,}"
+        return jsonify({'total': num_booked_listings})

@@ -2,3 +2,5 @@ uniqueName,creatorId,queryText,plaintextPrompt,createdAt,lastUsed
 Number of guest users,936df00d-f3ee-4596-8f35-3c97b4b644b8,"select count(*) from ""User"" u inner join ""ListingPreferences"" p on p.""userId"" = u.id",,2024-08-27T16:06:59.395620,
 Total number of users,936df00d-f3ee-4596-8f35-3c97b4b644b8,"select count(*) from ""User""",,2024-08-27T16:06:59.395620,
 New users by day for last 7 days,936df00d-f3ee-4596-8f35-3c97b4b644b8,"WITH date_series AS (SELECT generate_series(NOW()::date - INTERVAL '6 days', NOW()::date, '1 day')::date AS date) SELECT ds.date, COALESCE(COUNT(u.id), 0) AS signup_count FROM date_series ds LEFT JOIN ""User"" u ON ds.date = DATE_TRUNC('day', u.""createdAt"") LEFT JOIN ""ListingPreferences"" p ON p.""userId"" = u.id GROUP BY ds.date ORDER BY ds.date ASC;",,2024-08-27T23:58:33.391867,
+Total Booked Listings,936df00d-f3ee-4596-8f35-3c97b4b644b8,"select count(*) from ""Listing"" l where l.status = 'BOOKED'",,2024-08-28T01:21:53.682130,
+Total messages in last 24 hours,936df00d-f3ee-4596-8f35-3c97b4b644b8,"SELECT COUNT(*) FROM ""ConversationMessage"" cm WHERE cm.""createdAt"" >= NOW() - INTERVAL '24 HOURS';",,2024-08-28T01:26:57.712930,

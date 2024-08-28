@@ -241,19 +241,19 @@
         <div class="bottom-sections">
             <div class="bottom-section-half">
                 <div class="horizontal-elements">
-                    <div id="total-users" class="total-users">1,000</div>
+                    <div id="total-users" class="total-users">-</div>
                     <div class="large-text">Total Sign-ups</div>
                 </div>
             </div>
             <div class="bottom-section-third">
                 <div class="horizontal-elements">
-                    <div class="messages-past-day big-numbers-row-two">15</div>
+                    <div id="messages-past-day" class="messages-past-day big-numbers-row-two">-</div>
                     <div class="large-text">Conversation Messages in the Past 24 Hours</div>
                 </div>
             </div>
             <div class="bottom-section-third">
                 <div class="horizontal-elements">
-                    <div class="booked-listings big-numbers-row-two">3</div>
+                    <div id="total-booked-listings" class="booked-listings big-numbers-row-two">-</div>
                     <div class="large-text">Booked Listings</div>
                 </div>
                 
@@ -362,6 +362,38 @@
                 document.getElementById('total-users').innerText = data.total;
             })
             .catch(error => console.error('Error fetching total users:', error));
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch('/messages-past-day')  
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json(); // Assuming the response is JSON
+            })
+            .then(data => {
+                // Assuming the backend returns a JSON object with a field named 'total'
+                document.getElementById('messages-past-day').innerText = data.total;
+            })
+            .catch(error => console.error('Error fetching total messages:', error));
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch('/total-booked-listings')  
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json(); // Assuming the response is JSON
+            })
+            .then(data => {
+                // Assuming the backend returns a JSON object with a field named 'total'
+                document.getElementById('total-booked-listings').innerText = data.total;
+            })
+            .catch(error => console.error('Error fetching total booked listings:', error));
     });
 </script>
 </html>
