@@ -8,18 +8,20 @@ from scripts.python.user import read_users, write_user, find_user_by_username, g
 
 #Import other routes as blueprints
 from routes.dashboard import dashboard_bp
+from routes.queries import queries_bp
 
 #create app
 app = Flask(__name__)
 
 #Register other routes blueprints
 app.register_blueprint(dashboard_bp)
+app.register_blueprint(queries_bp)
 
 # Configure the secret key for session management
 app.config['SECRET_KEY'] = 'my-temporary-secret-key'
 
 # Set Permanent session lifetime
-app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=5)
 
 # Setting session properties
 @app.before_request
@@ -80,14 +82,6 @@ def help():
 def account():
     if 'user_id' in session:
         return render_template('account.html')
-    return jsonify({"message": "No session active"}), 401
-
-
-# Queries page route
-@app.route('/queries-home')
-def queries_home():
-    if 'user_id' in session:
-        return render_template('queries/queries_home.html')
     return jsonify({"message": "No session active"}), 401
 
 
