@@ -75,6 +75,22 @@ def help():
     return jsonify({"message": "No session active"}), 401
 
 
+# Account page route
+@app.route('/account')
+def account():
+    if 'user_id' in session:
+        return render_template('account.html')
+    return jsonify({"message": "No session active"}), 401
+
+
+# Queries page route
+@app.route('/queries-home')
+def queries_home():
+    if 'user_id' in session:
+        return render_template('queries/queries_home.html')
+    return jsonify({"message": "No session active"}), 401
+
+
 # Run the application
 if __name__ == '__main__':
     app.run(debug=True)

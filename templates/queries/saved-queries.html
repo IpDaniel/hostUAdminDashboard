@@ -83,10 +83,11 @@
     <link rel="stylesheet" href="../../static/query-finished-running.css">
     <link rel="stylesheet" href="../../static/loading-spinner.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='output-table.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='query-finished-running.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='loading-spinner.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/output-table.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/query-finished-running.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/create-query-div.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/loading-spinner.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -99,9 +100,9 @@
                 Admin Dashboard
             </div>
         </div>
-        <a href="#queries">Queries</a>
-        <a href="#help">Help</a>
-        <a href="#account">Account</a>
+        <a href="/queries-home">Queries</a>
+        <a href="/help">Help</a>
+        <a href="/account">Account</a>
         <a href="/dashboard">Home</a>
     </div>
 
