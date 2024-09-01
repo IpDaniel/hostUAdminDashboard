@@ -78,12 +78,16 @@
             background-color: #f0f0f0;
         }
     </style>
-    <link rel="stylesheet" href="../../styles/styles.css">
-    <link rel="stylesheet" href="../../styles/output-table.css">
-    <link rel="stylesheet" href="../../styles/query-finished-running.css">
-    <link rel="stylesheet" href="../../styles/loading-spinner.css">
+    <!-- <link rel="stylesheet" href="../../static/styles.css">
+    <link rel="stylesheet" href="../../static/output-table.css">
+    <link rel="stylesheet" href="../../static/query-finished-running.css">
+    <link rel="stylesheet" href="../../static/loading-spinner.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='output-table.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='query-finished-running.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='loading-spinner.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
 </head>
 <body>
     <div class="navbar">
@@ -98,7 +102,7 @@
         <a href="#queries">Queries</a>
         <a href="#help">Help</a>
         <a href="#account">Account</a>
-        <a href="#home">Home</a>
+        <a href="/dashboard">Home</a>
     </div>
 
     <div class="saved-queries-background">

@@ -67,6 +67,14 @@ def check_session():
     return jsonify({"message": "No user logged in"}), 401
 
 
+# Help page route
+@app.route('/help')
+def help():
+    if 'user_id' in session:
+        return render_template('help.html')
+    return jsonify({"message": "No session active"}), 401
+
+
 # Run the application
 if __name__ == '__main__':
     app.run(debug=True)
