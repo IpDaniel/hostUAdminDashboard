@@ -157,9 +157,17 @@
 }
 
 .save-failure-text {
-    display: block; /*Remember to change to NONE*/
+    display: none; /*Remember to change to NONE*/
     font-size: 14px;
     margin-top: -9px;
     color: rgb(206, 0, 0);
+    margin-bottom: 0px;
+}
+
+.save-success-text {
+    display: none; /*Remember to change to NONE*/
+    font-size: 14px;
+    margin-top: -9px;
+    color: #2ebdb5;
     margin-bottom: 0px;
 }

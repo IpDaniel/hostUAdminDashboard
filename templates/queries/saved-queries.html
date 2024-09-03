@@ -106,8 +106,8 @@
         <a href="/dashboard">Home</a>
     </div>
 
-    <div class="saved-queries-background">
-        <div class="saved-queries">
+    <div id="saved-queries-background" class="saved-queries-background">
+        <div id="saved-queries" class="saved-queries">
             <div class="query-card">
                 <div class="query-title">Query 1: Get All Users</div>
                 <div class="query-actions">
@@ -134,24 +134,25 @@
     
     <div class="content">
 
-        <div class="loading-container">
+        <div id="loading-container" class="loading-container">
             <div class="spinner"></div>
             <div class="loading-text">Processing</div>
         </div>
 
-        <div class="query-finished-running">
+        <div id="query-finished-running" class="query-finished-running">
             <div class="query-title-container add-bottom-border">
                 <h2>Query Title</h2>
                 <div class="query-title-input-container">
-                    <input type="text" class="small-text-box" placeholder="Enter query title">
-                    <button>Save Query</button>
+                    <input id="query-title" type="text" class="small-text-box" placeholder="Enter query title" currentlyStoredValue="">
+                    <button id="save-button">Save Query</button>
                 </div>
-                <p class="save-failure-text">Must enter title to save</p>
+                <p id="save-failure-text" class="save-failure-text">Must enter title to save</p>
+                <p id="save-success-text" class="save-success-text">Query saved successfully</p>
             </div>
             <div id="plaintext-prompt-section">
                 <h2>Plaintext Prompt Used</h2>
                 <div class="plaintext-prompt-box">
-                    <input type="text" class="small-text-box" readonly value="Get all users">
+                    <input id="plaintext-prompt" type="text" class="small-text-box" readonly value="">
                 </div>
             </div>
             <div class="dropdown">
@@ -174,7 +175,7 @@
 
             <!-- INSERT TABLE HTML HERE -->
             <div class="table-container">
-                <table>
+                <table id="response-data">
                     <thead>
                         <tr>
                             <th>Header 1</th>
@@ -271,4 +272,243 @@
     </div>
 </body>
 <script src="../../scripts/js/toggle-dropdown.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Function to fetch queries from the backend
+        async function fetchSavedQueries() {
+            try {
+                // Make a GET request to the backend endpoint
+                const response = await fetch('/get-saved-queries');
+    
+                // Check if the response is OK
+                if (!response.ok) {
+                    throw new Error('Failed to fetch saved queries');
+                }
+    
+                // Parse the response as JSON
+                const data = await response.json();
+    
+                // Populate the saved queries on the page
+                populateSavedQueries(data);
+                document.getElementById('loading-container').style.display = 'none';
+                document.getElementById('query-finished-running').style.display = 'none';
+            } catch (error) {
+                console.error('Error fetching saved queries:', error);
+            }
+        }
+
+        function handleResponseData(response) {
+            // update the UI with the result here
+            document.getElementById('plaintext-prompt-section').style.display = 'block';
+            document.getElementById('query-finished-running').style.display = 'flex';
+            document.getElementById('saved-queries').style.display = 'none';
+            document.getElementById('saved-queries-background').style.display = 'none';
+            document.getElementById('query-text-box').value = response.queryText;
+            document.getElementById('query-title').value = response.queryTitle;
+            document.getElementById('query-title').currentlyStoredValue = response.queryTitle;
+            if (response.plaintextPrompt === "") {
+                // Code to execute if plaintextPrompt is an empty string
+                document.getElementById('plaintext-prompt-section').style.display = 'none';
+            } else {
+                // Code to execute if plaintextPrompt is not an empty string
+                document.getElementById('plaintext-prompt').value = response.plaintextPrompt
+            }
+
+            //make the save query button work
+            const saveButton = document.getElementById('save-button')
+            saveButton.addEventListener('click', saveQueryToBackend);
+
+            // Extract headers and data from the response
+            const headers = response.Headers; // Array of header names
+            const data = response.Data;       // 2D array of rows
+
+            // Get the table header and body elements
+            const tableHead = document.querySelector('#response-data thead tr');
+            const tableBody = document.querySelector('#response-data tbody');
+
+            // Clear existing headers and rows in the table
+            tableHead.innerHTML = '';
+            tableBody.innerHTML = '';
+
+            // Populate the table headers
+            headers.forEach(header => {
+                const headerCell = document.createElement('th');
+                headerCell.textContent = header; // Set the header text content
+                tableHead.appendChild(headerCell); // Append the header cell to the table head
+            });
+
+            // Populate the table body with data
+            data.forEach(row => {
+                // Create a new table row
+                const newRow = document.createElement('tr');
+
+                // Loop through each element in the row and create table cells
+                row.forEach(cellData => {
+                    const newCell = document.createElement('td');
+                    newCell.textContent = cellData; // Set the cell's text content
+                    newRow.appendChild(newCell);    // Append the cell to the row
+                });
+
+                // Append the newly created row to the table body
+                tableBody.appendChild(newRow);
+            });
+        }
+
+        async function saveQueryToBackend() {
+            // Extract data from the input fields
+            const currentTitle = document.getElementById('query-title').currentlyStoredValue;
+            const newTitle = document.getElementById('query-title').value.trim();
+            const plaintextPrompt = document.getElementById('plaintext-prompt').value.trim();
+            const sqlQuery = document.getElementById('query-text-box').value.trim();
+
+            // Check if newTitle is empty
+            if (newTitle === "") {
+                // alert("Must enter title to save.");
+                document.getElementById('save-failure-text').style.display = 'block'
+                document.getElementById('save-success-text').style.display = 'none'
+                return;  // Stop execution if title is missing
+            }
+
+            // Create the data object to send
+            const dataToSend = {
+                currentTitle: currentTitle,
+                newTitle: newTitle,
+                plaintextPrompt: plaintextPrompt,
+                queryText: sqlQuery
+            };
+
+            try {
+                // Send a POST request to the backend
+                const response = await fetch('/save-query', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(dataToSend)
+                });
+
+                // Check if the request was successful
+                if (!response.ok) {
+                    throw new Error('Failed to save query');
+                }
+
+                // Optionally, handle the response from the backend
+                const result = await response.json();
+                console.log('Query saved successfully:', result);
+                document.getElementById('save-failure-text').style.display = 'none'
+                document.getElementById('save-success-text').style.display = 'block'
+
+                // Show success message or update UI as needed
+                //alert('Query saved successfully!');
+            } catch (error) {
+                console.error('Error saving query:', error);
+                alert('Failed to save query. Please try again.');
+            }
+        }
+
+
+    
+        // Function to create query cards and add them to the DOM
+        function populateSavedQueries(queries) {
+            // Get the saved-queries div
+            const savedQueriesDiv = document.getElementById('saved-queries');
+    
+            // Clear any existing content
+            savedQueriesDiv.innerHTML = '';
+    
+            // Loop through the queries and create a query card for each
+            queries.forEach((query, index) => {
+                // Create the query card div
+                const queryCard = document.createElement('div');
+                queryCard.className = 'query-card';
+    
+                // Create the query title div
+                const queryTitle = document.createElement('div');
+                queryTitle.className = 'query-title';
+                queryTitle.textContent = `${query.uniqueName}`; // Example title using uniqueName
+    
+                // Create the query actions div
+                const queryActions = document.createElement('div');
+                queryActions.className = 'query-actions';
+    
+                // Create the run button
+                const runButton = document.createElement('button');
+                runButton.className = 'run-button';
+                runButton.textContent = 'Run';
+    
+                // Add click event listener to run button
+                runButton.addEventListener('click', async () => {
+                    try {
+                        const response = await fetch('/run-saved-query', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ queryName: query.uniqueName }) // Send the query name
+                        });
+                        document.getElementById('loading-container').style.display = 'block';
+    
+                        if (!response.ok) {
+                            throw new Error('Failed to run query');
+                        }
+    
+                        const result = await response.json();
+                        console.log('Query result:', result);
+                        // update the UI with the result here
+                        handleResponseData(result)
+
+                        document.getElementById('loading-container').style.display = 'none';
+                    } catch (error) {
+                        console.error('Error running query:', error);
+                        document.getElementById('loading-container').style.display = 'none';
+                    }
+                });
+    
+                // Create the trash button
+                const trashButton = document.createElement('button');
+                trashButton.className = 'trash-icon';
+                trashButton.innerHTML = '<i class="fas fa-trash"></i>';
+                
+                // Add click event listener to trash button
+                trashButton.addEventListener('click', () => {
+                    // Code to handle deleting the query
+                    console.log(`Deleting query: ${query.uniqueName}`);
+                });
+    
+                // Append buttons to the query actions div
+                queryActions.appendChild(runButton);
+                queryActions.appendChild(trashButton);
+    
+                // Append title and actions to the query card div
+                queryCard.appendChild(queryTitle);
+                queryCard.appendChild(queryActions);
+    
+                // Append the query card to the saved-queries div
+                savedQueriesDiv.appendChild(queryCard);
+            });
+        }
+    
+        // Call the function to fetch and display saved queries
+        fetchSavedQueries();
+    });
+    </script>
+    <script>
+        function toggleDropdown() {
+            const content = document.getElementById('dropdown-content');
+            const downArrow = document.getElementById('sql-query-down-arrow');
+            const upArrow = document.getElementById('sql-query-up-arrow');
+            const header = document.getElementById('sql-query-header');
+            if (upArrow.style.visibility === 'hidden') {
+                upArrow.style.visibility = 'visible';
+                downArrow.style.visibility = 'hidden';
+                upArrow.style.marginLeft = '-30px';
+                header.style.marginLeft = '0px'
+            } else {
+                upArrow.style.visibility = 'hidden';
+                downArrow.style.visibility = 'visible';
+                header.style.marginLeft = '0px'
+            }
+            content.classList.toggle('show');
+        }
+    </script>    
 </html>

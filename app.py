@@ -48,7 +48,8 @@ def login():
 
     if user and bcrypt.checkpw(password, user['password'].encode('utf-8')):
         session['user_id'] = user['id']
-        print(user['id'] + ' logged in')
+        session['user_name'] = user['name']
+        print(user['name'] + ' logged in')
         return jsonify({"message": "Login successful", "redirect": url_for('dashboard.dashboard')}), 200
     else:
         return jsonify({"message": "Invalid credentials"}), 401
@@ -74,7 +75,7 @@ def check_session():
 def help():
     if 'user_id' in session:
         return render_template('help.html')
-    return jsonify({"message": "No session active"}), 401
+    return redirect(url_for('index'))
 
 
 # Account page route
@@ -82,7 +83,7 @@ def help():
 def account():
     if 'user_id' in session:
         return render_template('account.html')
-    return jsonify({"message": "No session active"}), 401
+    return redirect(url_for('index'))
 
 
 # Run the application
