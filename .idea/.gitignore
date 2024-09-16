@@ -6,3 +6,8 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+# Users so that private data is not leaked
+/data/users.json
+# notebook.txt and scratch.py
+/notebook.txt
+/scratch.py
