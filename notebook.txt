@@ -1,0 +1,42 @@
+Details on the homepage that need to be fetched from the backend:
+1. Sign-ups in past 7 days
+    labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Today'],
+    data: [8, 11, 12, 11, 10, 16, 4],
+    class: past-week-signups
+2. Total guest/host ratio
+    class: guest-host-ratio
+    data: [1500, 500]
+3. Total Users
+    class: total-users
+4. Conversation Messages in past 24 hours
+    class: messages-past-day
+5. Current Booked Listings
+    class: booked-listings
+
+
+Things I need in llm query output:
+1. Title box
+    - save query button next to that
+2. English text prompt used. uneditable
+3. The sql query used
+    - make it a clickable black text with a line underneath it. When it is clicked, 
+      the div opens up by expanding the line vertically
+    - button or dropdown to show sql query
+    - a div that allows the user to edit the query
+        - and hit save
+            a title must be entered for the query to be saved
+5. The run again button
+6. The save table button
+    - maybe a dropdown with different table formats?
+7. The table itself
+
+
+To Do as of 9/10/2024
+1. Add buttons to the run-query div
+    - close without saving button
+    - functionality of "Run again" button
+    - Functionality of "Save table" button
+    - Abstract out the run-query div javascript functions into their own file
+    - Abstract out the run-query div into its own file or copy and paste into each query related file
+
+
