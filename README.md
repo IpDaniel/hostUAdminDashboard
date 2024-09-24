@@ -24,5 +24,6 @@ The backend is tied together with the Flask framework in Python. Network securit
 ### Routes
 All routes for communicating between frontend and backend are stored either directly in the app file, or they are stored in a different file in the routes folder, and imported to the app file.
 ### Model files
-Most of the complexities of the app are managed in the [scripts]() folder. This includes the process for connecting to the HostU database, the 
+Most of the complexities of the app are managed in the [scripts]() folder. This includes the process for connecting to the HostU database, the calculations for dashboard data, API connections, and any other helper functions necessary to allow the application to run. 
 ## LLM integration
+The llm is integrated through the openAI API.
